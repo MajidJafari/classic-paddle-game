@@ -19,7 +19,7 @@ public class BoundaryPosition {
 
 public class Ball : MonoBehaviour
 {
-    public float secondsToWaitBeforeLaunching = 3;
+    public float secondsToWaitToLaunch = 3;
     public BoundaryPosition randomPositionX = new BoundaryPosition(6, 8);
     public BoundaryPosition randomPositionY = new BoundaryPosition(-4, 3);
     // Start is called before the first frame update
@@ -39,7 +39,7 @@ public class Ball : MonoBehaviour
 
     IEnumerator WaitForIt() {
         var rigidBody = GetComponent<Rigidbody>();
-        yield return new WaitForSeconds(this.secondsToWaitBeforeLaunching);
+        yield return new WaitForSeconds(this.secondsToWaitToLaunch);
         if (rigidBody) {
             rigidBody.AddForce(
                 Random.Range(this.randomPositionX.lower, this.randomPositionX.upper),
