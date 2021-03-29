@@ -17,6 +17,7 @@ public class BoundaryPosition {
     }
 }
 
+[RequireComponent(typeof(AudioSource))]
 public class Ball : MonoBehaviour
 {
     public float secondsToWaitToLaunch = 3;
@@ -47,4 +48,6 @@ public class Ball : MonoBehaviour
             0);
         }
     }
+
+    private void OnCollisionEnter(Collision collisionInfo) => GetComponent<AudioSource>().Play();
 }
