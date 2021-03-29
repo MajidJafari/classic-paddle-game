@@ -15,6 +15,8 @@ public class Player : MonoBehaviour
     public string moveUpKeyboard = "w";
     public string moveDownKeyboard = "s";
 
+    public int score { get; set; }
+
     // Start is called before the first frame update
     void Start()
     {

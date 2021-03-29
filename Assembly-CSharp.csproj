@@ -39,6 +39,7 @@
      <Compile Include="Assets\Ball.cs" />
      <Compile Include="Assets\BallRelaunch.cs" />
      <Compile Include="Assets\Player.cs" />
+     <Compile Include="Assets\Scoring.cs" />
     <Reference Include="UnityEngine">
         <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>

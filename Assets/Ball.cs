@@ -50,4 +50,6 @@ public class Ball : MonoBehaviour
     }
 
     private void OnCollisionEnter(Collision collisionInfo) => GetComponent<AudioSource>().Play();
+
+    public void Relaunch(Vector3 vector) => this.transform.position = vector;
 }
