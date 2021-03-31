@@ -19,9 +19,6 @@ public class BallRelaunch : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        var ball = other.GetComponent<Ball>();
-        if (ball) {
-            ball.Scored(this.relaunchPosition);
-        }
+        other.GetComponent<Ball>()?.Scored(this.relaunchPosition);
     }
 }
