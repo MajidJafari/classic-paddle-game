@@ -21,8 +21,7 @@ public class BallRelaunch : MonoBehaviour
     {
         var ball = other.GetComponent<Ball>();
         if (ball) {
-            Scoring.AddScore(ball.latestTouchingPlayerNumber);
-            ball.Relaunch(this.relaunchPosition);
+            ball.Scored(this.relaunchPosition);
         }
     }
 }

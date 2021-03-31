@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,11 +21,11 @@ public class BoundaryPosition {
 [RequireComponent(typeof(AudioSource))]
 public class Ball : MonoBehaviour
 {
+    public Scoring scoreboard;
     public float secondsToWaitToLaunch = 3;
     public BoundaryPosition randomPositionX = new BoundaryPosition(6, 8);
     public BoundaryPosition randomPositionY = new BoundaryPosition(-4, 3);
-    private PlayerNumbers _latestTouchingPlayerNumber;
-    public PlayerNumbers latestTouchingPlayerNumber { get { return this._latestTouchingPlayerNumber; } }
+    private Nullable<PlayerNumbers> latestTouchingPlayerNumber = null;
 
     // Start is called before the first frame update
     void Start()
@@ -46,20 +47,21 @@ public class Ball : MonoBehaviour
         yield return new WaitForSeconds(this.secondsToWaitToLaunch);
         if (rigidBody) {
             rigidBody.AddForce(
-                Random.Range(this.randomPositionX.lower, this.randomPositionX.upper),
-                Random.Range(this.randomPositionY.lower, this.randomPositionY.upper),
+                UnityEngine.Random.Range(this.randomPositionX.lower, this.randomPositionX.upper),
+                UnityEngine.Random.Range(this.randomPositionY.lower, this.randomPositionY.upper),
             0);
         }
     }
 
-    private void OnCollisionEnter(Collision collisionInfo) 
+    private void OnCollisionEnter(Collision collisionInfo)
     {
-        Player player = collisionInfo.gameObject.GetComponent<Player>();
-        if (player) {
-            this._latestTouchingPlayerNumber = player.playerNumber;
-        }
+        this.latestTouchingPlayerNumber = (PlayerNumbers) collisionInfo.gameObject.GetComponent<Player>()?.playerNumber;
         GetComponent<AudioSource>().Play();
     }
 
-    public void Relaunch(Vector3 vector) => this.transform.position = vector;
+    public void Scored(Vector3 relaunchPosition) {
+        this.scoreboard.AddScore(this.latestTouchingPlayerNumber);
+        this.latestTouchingPlayerNumber = null;
+        this.transform.position = relaunchPosition;
+    }
 }
