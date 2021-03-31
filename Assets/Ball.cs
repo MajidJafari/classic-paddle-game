@@ -8,23 +8,13 @@ static class BallCoroutines {
     public static string WaitForIt{ get { return "WaitForIt"; } }
 }
 
-public class BoundaryPosition {
-    public int lower{ get; set; }
-    public int upper{ get; set; }
-
-    public BoundaryPosition(int lower, int upper) {
-        this.lower = lower;
-        this.upper = upper;
-    }
-}
-
 [RequireComponent(typeof(AudioSource))]
 public class Ball : MonoBehaviour
 {
     public Scoring scoreboard;
     public float secondsToWaitToLaunch = 3;
-    public BoundaryPosition randomPositionX = new BoundaryPosition(6, 8);
-    public BoundaryPosition randomPositionY = new BoundaryPosition(-4, 3);
+    public Vector2 lowerBound = new Vector2(-4, 6);
+    public Vector2 upperBound = new Vector2(3, 8);
     private Nullable<PlayerNumbers> latestTouchingPlayerNumber = null;
 
     // Start is called before the first frame update
@@ -47,8 +37,8 @@ public class Ball : MonoBehaviour
         yield return new WaitForSeconds(this.secondsToWaitToLaunch);
         if (rigidBody) {
             rigidBody.AddForce(
-                UnityEngine.Random.Range(this.randomPositionX.lower, this.randomPositionX.upper),
-                UnityEngine.Random.Range(this.randomPositionY.lower, this.randomPositionY.upper),
+                UnityEngine.Random.Range(this.lowerBound.x, this.upperBound.x),
+                UnityEngine.Random.Range(this.lowerBound.y, this.upperBound.y),
             0);
         }
     }
