@@ -45,7 +45,10 @@ public class Ball : MonoBehaviour
 
     private void OnCollisionEnter(Collision collisionInfo)
     {
-        this.latestTouchingPlayerNumber = (PlayerNumbers) collisionInfo.gameObject.GetComponent<Player>()?.playerNumber;
+        Player player = collisionInfo.gameObject.GetComponent<Player>();
+        if (player) {
+            this.latestTouchingPlayerNumber = player.playerNumber;
+        }
         GetComponent<AudioSource>().Play();
     }
 
