@@ -3,20 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum PlayerNumbers {
+    P1, P2, P3, P4
+}
 
-enum MovementTypes
-{
-    Up, Down, Idle
+enum MovementTypes {
+    Forward, Backward, Idle
 }
 
 public class Player : MonoBehaviour
 {
-    public float translationMultiplier = 20.0f;
-    public string moveUpKeyboard = "w";
-    public string moveDownKeyboard = "s";
-
-    public int score { get; set; }
-
+    public PlayerNumbers playerNumber;
+    public float speed = 20.0f;
+    public string moveForwardKeyboard;
+    public string moveBackwardKeyboard;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,10 +26,10 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MovementTypes movementType = Input.GetKey(this.moveUpKeyboard)
-            ? MovementTypes.Up 
-            : Input.GetKey(this.moveDownKeyboard) 
-            ? MovementTypes.Down 
+        MovementTypes movementType = Input.GetKey(this.moveForwardKeyboard)
+            ? MovementTypes.Forward
+            : Input.GetKey(this.moveBackwardKeyboard) 
+            ? MovementTypes.Backward 
             : MovementTypes.Idle;
         this.move(movementType);
     }
@@ -37,15 +37,17 @@ public class Player : MonoBehaviour
     private void move(MovementTypes type)
     {
         var multiplier = this.getMultiplier(type);
-        transform.Translate(0, multiplier * Time.deltaTime, 0);
+        var translationAmount = multiplier * Time.deltaTime;
+        var translationVector = new Vector3(0, translationAmount, 0);
+        transform.Translate(translationVector);
     }
 
     private float getMultiplier(MovementTypes type) {
         switch(type) {
-            case MovementTypes.Up:
-                return this.translationMultiplier;
-            case MovementTypes.Down:
-                return -this.translationMultiplier;
+            case MovementTypes.Forward:
+                return this.speed;
+            case MovementTypes.Backward:
+                return -this.speed;
             default:
                 return 0;    
         }

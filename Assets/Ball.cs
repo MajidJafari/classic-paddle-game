@@ -23,6 +23,9 @@ public class Ball : MonoBehaviour
     public float secondsToWaitToLaunch = 3;
     public BoundaryPosition randomPositionX = new BoundaryPosition(6, 8);
     public BoundaryPosition randomPositionY = new BoundaryPosition(-4, 3);
+    private PlayerNumbers _latestTouchingPlayerNumber;
+    public PlayerNumbers latestTouchingPlayerNumber { get { return this._latestTouchingPlayerNumber; } }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -49,7 +52,14 @@ public class Ball : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collisionInfo) => GetComponent<AudioSource>().Play();
+    private void OnCollisionEnter(Collision collisionInfo) 
+    {
+        Player player = collisionInfo.gameObject.GetComponent<Player>();
+        if (player) {
+            this._latestTouchingPlayerNumber = player.playerNumber;
+        }
+        GetComponent<AudioSource>().Play();
+    }
 
     public void Relaunch(Vector3 vector) => this.transform.position = vector;
 }

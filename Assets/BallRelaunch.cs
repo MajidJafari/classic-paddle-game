@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class BallRelaunch : MonoBehaviour
 {
-    public Ball ball;
-    public Player player1;
-    public Player player2;
     public Vector3 relaunchPosition = new Vector3(0, 0, 0);
     // Start is called before the first frame update
     void Start()
@@ -22,8 +19,10 @@ public class BallRelaunch : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        var scoringPlayer = other.transform.position.x > 0 ? this.player1 : this.player2;
-        scoringPlayer.score++;
-        this.ball.Relaunch(this.relaunchPosition);
+        var ball = other.GetComponent<Ball>();
+        if (ball) {
+            Scoring.AddScore(ball.latestTouchingPlayerNumber);
+            ball.Relaunch(this.relaunchPosition);
+        }
     }
 }
