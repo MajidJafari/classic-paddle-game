@@ -289,6 +289,8 @@ MonoBehaviour:
   speed: 20
   moveForwardKeyboard: w
   moveBackwardKeyboard: s
+  speedBallDownKeyboard: '-'
+  speedBallUpKeyboard: +
 --- !u!1 &97611230
 GameObject:
   m_ObjectHideFlags: 0
@@ -643,6 +645,8 @@ MonoBehaviour:
   speed: 20
   moveForwardKeyboard: up
   moveBackwardKeyboard: down
+  speedBallDownKeyboard: '-'
+  speedBallUpKeyboard: +
 --- !u!1 &407678273
 GameObject:
   m_ObjectHideFlags: 0
@@ -679,6 +683,8 @@ MonoBehaviour:
   speed: 20
   moveForwardKeyboard: right
   moveBackwardKeyboard: left
+  speedBallDownKeyboard: '-'
+  speedBallUpKeyboard: +
 --- !u!65 &407678275
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -789,6 +795,8 @@ MonoBehaviour:
   speed: 20
   moveForwardKeyboard: a
   moveBackwardKeyboard: d
+  speedBallDownKeyboard: '-'
+  speedBallUpKeyboard: +
 --- !u!65 &522120713
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1005,6 +1013,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfdd275f3a4521b4290eafb079a93278, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  heavyMass: 0.01
+  lightMass: 0.0001
   scoreboard: {fileID: 1270041863}
   secondsToWaitToLaunch: 3
   lowerBound: {x: -4, y: 6}

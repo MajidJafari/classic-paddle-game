@@ -17,6 +17,10 @@ public class Player : MonoBehaviour
     public float speed = 20.0f;
     public string moveForwardKeyboard;
     public string moveBackwardKeyboard;
+
+    public string speedBallDownKeyboard = "-";
+    public string speedBallUpKeyboard = "=";
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +36,14 @@ public class Player : MonoBehaviour
             ? MovementTypes.Backward 
             : MovementTypes.Idle;
         this.move(movementType);
+
+        MassTypes ballMassType = Input.GetKey(this.speedBallUpKeyboard)
+            ? MassTypes.Light
+            : Input.GetKey(this.speedBallDownKeyboard)
+            ? MassTypes.Heavy
+            : MassTypes.Void;
+            
+        Ball.Instance.SetMass(ballMassType, this.playerNumber);
     }
 
     private void move(MovementTypes type)
@@ -49,7 +61,7 @@ public class Player : MonoBehaviour
             case MovementTypes.Backward:
                 return -this.speed;
             default:
-                return 0;    
+                return 0;
         }
     }
 }
